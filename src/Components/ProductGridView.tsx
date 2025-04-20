@@ -32,7 +32,7 @@ export default function ProductGridView() {
 
     return (
         <div className="min-h-[700px] mt-18">
-            <div className='pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6'>
+            <div className='pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
                 {products.map((p, index) => {
                     return <ProductCard key={index} value={p as ProductModel} />
                 })}
