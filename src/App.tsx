@@ -1,10 +1,10 @@
-import './App.css'
+import './App.css';
+import ProductGridView from './Components/ProductGridView';
 
 function App() {
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-800 text-2xl text-white font-bold">
-      Shop Sphere
+    <div>
+      <ProductGridView/>
     </div>
   )
 }
