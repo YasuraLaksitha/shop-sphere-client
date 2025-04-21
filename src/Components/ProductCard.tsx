@@ -17,7 +17,7 @@ export default function ProductCard(product: ProductCardProps) {
     }
 
     return ( 
-        <section className='product-card'>
+        <section className='product-card mt-8'>
             <div
                 onClick={() => { handleProductViewModal() }}
                 className='rounded-lg shadow-xl transition-shadow duration-300 min-h-full'>

@@ -1,15 +1,23 @@
+import { useEffect } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
-import products from '../MockDataStore/MOCK_DATA_PORDUCTS.json';
+import { fetchAllProducts } from '../api/ProductAPIS';
 import { ProductModel } from '../Models/ProductModel';
+import { ProductRootState } from '../store/ConfigStore';
+import { useProductDispatch, useProductSelector } from '../store/Hooks';
 import ProductCard from './ProductCard';
 
 export default function ProductGridView() {
-    const error: string|null = '';
-    const isLoading: boolean = false;
+    const { isLoading, error, products } = useProductSelector((state: ProductRootState) => state.products)
+    const dispatch = useProductDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAllProducts({ size: 10, page: 1 }))
+        
+    },[]);
 
     if (isLoading) {
         return (
-            <div>
+            <div className='flex justify-center items-center h-[200px] mt-4'>
                 Loading...
             </div>
         )
@@ -26,14 +34,14 @@ export default function ProductGridView() {
         )
     }
 
-    if (!products) {
+    if (products?.length == 0) {
         return <div>Nothing to display</div>
     }
 
     return (
         <div className="min-h-[700px] mt-18">
             <div className='pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
-                {products.map((p, index) => {
+                {products && products.map((p, index) => {
                     return <ProductCard key={index} value={p as ProductModel} />
                 })}
             </div>
