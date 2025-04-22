@@ -5,13 +5,14 @@ import { ProductModel } from '../Models/ProductModel';
 import { ProductRootState } from '../store/ConfigStore';
 import { useProductDispatch, useProductSelector } from '../store/Hooks';
 import ProductCard from './ProductCard';
+import Filter from './Filter';
 
 export default function ProductGridView() {
     const { isLoading, error, products } = useProductSelector((state: ProductRootState) => state.products)
     const dispatch = useProductDispatch();
 
     useEffect(() => {
-        dispatch(fetchAllProducts({ size: 10, page: 1 }))
+        dispatch(fetchAllProducts({ size: 10, page: 0 }))
         
     },[]);
 
@@ -39,8 +40,9 @@ export default function ProductGridView() {
     }
 
     return (
-        <div className="min-h-[700px] mt-18">
-            <div className='pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
+        <div className="min-h-[700px]">
+            <Filter/>
+            <div className='mt-18 pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
                 {products && products.map((p, index) => {
                     return <ProductCard key={index} value={p as ProductModel} />
                 })}
