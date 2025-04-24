@@ -5,18 +5,11 @@ import Filter from './Filter';
 import {ProductModel} from "../Models/ProductModel.ts";
 import useProductFilter from "../hooks/useProductFilter.tsx";
 import {RootState} from "../store/ConfigStore.ts";
+import Loader from "./Loader.tsx";
 
 export default function ProductGridView() {
     const {isLoading, error, products} = useRootSelector((state: RootState) => state.products)
     useProductFilter();
-
-    if (isLoading) {
-        return (
-            <div className='flex justify-center items-center h-[200px] mt-4'>
-                Loading...
-            </div>
-        )
-    }
 
     if (error) {
         return (
@@ -36,11 +29,18 @@ export default function ProductGridView() {
     return (
         <div className="min-h-[700px]">
             <Filter/>
-            <div className='mt-18 pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
-                {products?.map((p: ProductModel, index: number) => {
-                    return <ProductCard key={index} value={p}/>
-                })}
-            </div>
+            {(isLoading) ? (
+                <div className='flex justify-center items-center h-[200px] mt-4'>
+                    <Loader/>
+                </div>
+            ) : (
+                <div className='mt-18 pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
+                    {products?.map((p: ProductModel, index: number) => {
+                        return <ProductCard key={index} value={p}/>
+                    })}
+                </div>
+            )}
+
         </div>
     )
 }

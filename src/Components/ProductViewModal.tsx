@@ -8,10 +8,10 @@ type ProductViewModalProps = {
     isModalOpen: boolean,
     setIsModalOpen: (value: boolean) => void,
     product: ProductModel,
-    isAvilable: boolean
+    isAvailable: boolean
 }
 
-export default function ProductViewModal(modalProps: ProductViewModalProps) {
+export default function ProductViewModal(modalProps: Readonly<ProductViewModalProps>) {
     const productProps = { ...modalProps.product }
 
     function handleClickClose() {
@@ -61,9 +61,9 @@ export default function ProductViewModal(modalProps: ProductViewModalProps) {
                                     </span>
                                 </div>
                             )}
-                           
+
                             <span className='mt-1.5'>
-                                {modalProps.isAvilable ? (
+                                {modalProps.isAvailable ? (
                                     <Status
                                         text="In Stock"
                                         icon={<MdDone />}
@@ -79,7 +79,7 @@ export default function ProductViewModal(modalProps: ProductViewModalProps) {
                                     />
                                 )}
                             </span>
-                            
+
                         </div>
 
                         <div className="mt-4">
@@ -87,7 +87,7 @@ export default function ProductViewModal(modalProps: ProductViewModalProps) {
                                 className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                                 onClick={handleClickClose}>
 
-                                {modalProps.isAvilable ? "Added to Cart !" : "Close"}
+                                {modalProps.isAvailable ? "Added to Cart !" : "Close"}
                             </Button>
                         </div>
 

@@ -6,6 +6,7 @@ import {FiRefreshCw, FiSearch} from "react-icons/fi";
 import {useRootDispatch, useRootSelector} from "../store/Hooks.ts";
 import {RootState} from "../store/ConfigStore.ts";
 import {fetchAllCategories} from "../api/CategoryAPIs.ts";
+import Loader from "./Loader.tsx";
 
 type SortOrderToggler = "asc" | "desc";
 
@@ -48,7 +49,7 @@ export default function Filter() {
     if (isLoading) {
         return (
             <div className='flex justify-center items-center h-[200px] mt-4'>
-                Loading...
+               <Loader/>
             </div>
         )
     }

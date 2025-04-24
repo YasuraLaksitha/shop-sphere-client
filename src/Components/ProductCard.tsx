@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
-import { ProductModel } from '../Models/ProductModel';
+import {FaShoppingCart} from 'react-icons/fa';
+import {ProductModel} from '../Models/ProductModel';
 import ProductViewModal from './ProductViewModal';
 
 type ProductCardProps = {
@@ -19,7 +19,10 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
     return (
         <section className='product-card mt-8'>
             <div
-                onClick={() => { handleProductViewModal() }}
+                role={'button'}
+                onClick={() => {
+                    handleProductViewModal()
+                }}
                 className='rounded-lg shadow-xl transition-shadow duration-300 min-h-full'>
                 <div className='w-full overflow-hidden aspect-[3/2]'>
                     <img
@@ -57,11 +60,13 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                         )}
                         <button
                             disabled={!isAvailable}
-                            onClick={() => { handleProductViewModal() }}
+                            onClick={() => {
+                                handleProductViewModal()
+                            }}
                             className={` flex bg-blue-500 text-white rounded-lg px-3 py-2 transition-colors duration-300 w-36 items-center justify-center
                                 ${isAvailable ? 'cursor-pointer opacity-100 hover:bg-blue-600' : 'opacity-70'}`
                             }>
-                            <FaShoppingCart />
+                            <FaShoppingCart/>
                             <span className='ps-2'>
                                 {isAvailable ? "Add To Cart" : "Out Of Stock"}
                             </span>
@@ -73,7 +78,7 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                 product={product.value}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
-                isAvilable={isAvailable}
+                isAvailable={isAvailable}
             />
         </section>
     )
