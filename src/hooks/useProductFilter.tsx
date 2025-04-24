@@ -15,6 +15,8 @@ export default function useProductFilter() {
         searchParams.set("size", size.toString());
         searchParams.set("sortOrder", searchParams.get("sortOrder") ?? "asc");
         searchParams.set("sortBy", searchParams.get("sortBy") ?? "productPrice");
+        searchParams.set("category", searchParams.get("category") ?? "");
+        searchParams.set("keyword", searchParams.get("keyword") ?? "");
 
         const queryString: string = searchParams.toString();
 
