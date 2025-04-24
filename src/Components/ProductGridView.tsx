@@ -1,13 +1,13 @@
 import {FaExclamationTriangle} from 'react-icons/fa';
-import {ProductRootState} from '../store/ConfigStore';
-import {useProductSelector} from '../store/Hooks';
+import {useRootSelector} from '../store/Hooks';
 import ProductCard from './ProductCard';
 import Filter from './Filter';
 import {ProductModel} from "../Models/ProductModel.ts";
 import useProductFilter from "../hooks/useProductFilter.tsx";
+import {RootState} from "../store/ConfigStore.ts";
 
 export default function ProductGridView() {
-    const {isLoading, error, products} = useProductSelector((state: ProductRootState) => state.products)
+    const {isLoading, error, products} = useRootSelector((state: RootState) => state.products)
     useProductFilter();
 
     if (isLoading) {

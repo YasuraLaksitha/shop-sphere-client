@@ -1,11 +1,11 @@
 import {useSearchParams} from "react-router-dom";
-import {useProductDispatch} from "../store/Hooks.ts";
+import {useRootDispatch} from "../store/Hooks.ts";
 import {useEffect} from "react";
-import {fetchAllProducts} from "../api/ProductAPIS.ts";
+import {fetchAllProducts} from "../api/ProductAPIs.ts";
 
 export default function useProductFilter() {
     const [searchParams] = useSearchParams();
-    const dispatch = useProductDispatch();
+    const dispatch = useRootDispatch();
 
     useEffect(() => {
         const currentPage: number = searchParams.get("page") ? Number(searchParams.get("page")) : 1;

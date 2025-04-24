@@ -7,7 +7,7 @@ type StatusProps = {
     icon: React.ReactNode
 }
 
-export default function Status(statusProps: StatusProps) {
+export default function Status(statusProps: Readonly<StatusProps>) {
     return (
         <div
             className={`${statusProps.bg} ${statusProps.color} p-1 font-medium rounded flex items-center gap-1`}

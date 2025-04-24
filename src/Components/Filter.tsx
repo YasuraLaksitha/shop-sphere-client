@@ -1,14 +1,18 @@
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Tooltip} from "@mui/material";
 import {ChangeEvent, SetStateAction, useEffect, useState} from "react";
-import {FaArrowDown, FaArrowUp} from "react-icons/fa";
+import {FaArrowDown, FaArrowUp, FaExclamationTriangle} from "react-icons/fa";
 import {NavigateFunction, useLocation, useNavigate, useSearchParams} from "react-router-dom"
 import {FiRefreshCw, FiSearch} from "react-icons/fi";
+import {useRootDispatch, useRootSelector} from "../store/Hooks.ts";
+import {RootState} from "../store/ConfigStore.ts";
+import {fetchAllCategories} from "../api/CategoryAPIs.ts";
 
 type SortOrderToggler = "asc" | "desc";
 
-const categories: Array<string> = ["Electronics", "Sports", "Fashion", "Food"];
-
 export default function Filter() {
+    const {isLoading, error, categories} = useRootSelector((state: RootState) => state.categories);
+    const dispatch = useRootDispatch();
+
     const navigate: NavigateFunction = useNavigate();
     const pathName: string = useLocation().pathname;
     const [searchParams] = useSearchParams();
@@ -16,6 +20,10 @@ export default function Filter() {
     const [category, setCategory] = useState<string>("all");
     const [sortOrder, setSortOrder] = useState<string>("asc");
     const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+        dispatch(fetchAllCategories());
+    }, [dispatch]);
 
     useEffect((): void => {
         setCategory(searchParams.get("category") as SetStateAction<string>);
@@ -36,6 +44,25 @@ export default function Filter() {
             clearTimeout(timeOutHandler);
         }
     }, [searchTerm, searchParams, pathName, navigate]);
+
+    if (isLoading) {
+        return (
+            <div className='flex justify-center items-center h-[200px] mt-4'>
+                Loading...
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className='flex justify-center items-center h-[200px] mt-4'>
+                <FaExclamationTriangle className='text-slate-800 text-3xl mr-2'/>
+                <span className='text-slate-800 font-medium text-lg'>
+                    {error}
+                </span>
+            </div>
+        )
+    }
 
     function handleCategoryChange(e: SelectChangeEvent): void {
         const selectedCategory = e.target.value;
@@ -83,9 +110,9 @@ export default function Filter() {
                         onChange={handleCategoryChange}>
 
                         <MenuItem value="all">All</MenuItem>
-                        {categories.map((item, index) => (
-                            <MenuItem key={index} value={item}>
-                                {item}
+                        {categories?.map((item, index) => (
+                            <MenuItem key={index} value={item.name}>
+                                {item.name}
                             </MenuItem>
                         ))}
                     </Select>

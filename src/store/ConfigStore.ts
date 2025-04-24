@@ -1,11 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 import productReducer from '../store/ProductSlice'
+import categoryReducer from '../store/CategorySlice.ts'
 
 export const Store = configureStore({
     reducer: {
-        products: productReducer
+        products: productReducer,
+        categories: categoryReducer
     }
 });
 
-export type ProductDispatch = typeof Store.dispatch
-export type ProductRootState = ReturnType<typeof Store.getState>;
+export type RootDispatcher = typeof Store.dispatch
+export type RootState = ReturnType<typeof Store.getState>;

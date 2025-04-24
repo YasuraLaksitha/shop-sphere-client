@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ProductDispatch, ProductRootState } from "./ConfigStore";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState, RootDispatcher} from "./ConfigStore";
 
-export const useProductDispatch = useDispatch.withTypes<ProductDispatch>();
-export const useProductSelector = useSelector.withTypes<ProductRootState>()
+export const useRootDispatch = useDispatch.withTypes<RootDispatcher>();
+export const useRootSelector = useSelector.withTypes<RootState>();

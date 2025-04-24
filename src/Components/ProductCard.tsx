@@ -7,7 +7,7 @@ type ProductCardProps = {
     value: ProductModel;
 };
 
-export default function ProductCard(product: ProductCardProps) {
+export default function ProductCard(product: Readonly<ProductCardProps>) {
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
     const isAvailable: boolean = product.value.productQuantity > 0;
@@ -16,7 +16,7 @@ export default function ProductCard(product: ProductCardProps) {
         setIsModalOpen(true);
     }
 
-    return ( 
+    return (
         <section className='product-card mt-8'>
             <div
                 onClick={() => { handleProductViewModal() }}
@@ -29,7 +29,7 @@ export default function ProductCard(product: ProductCardProps) {
                     />
                 </div>
                 <div className="p-4">
-                    <h2 onClick={() => { }}
+                    <h2
                         className='text-lg font-semibold mb-2 cursor-pointer'>
                         {product.value.productName}
                     </h2>
@@ -70,7 +70,7 @@ export default function ProductCard(product: ProductCardProps) {
                 </div>
             </div>
             <ProductViewModal
-                product={product.value as ProductModel}
+                product={product.value}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
                 isAvilable={isAvailable}

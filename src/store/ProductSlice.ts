@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { fetchAllProducts } from "../api/ProductAPIS"
-import { ProductModel } from "../Models/ProductModel"
+import {createSlice} from "@reduxjs/toolkit"
+import {fetchAllProducts} from "../api/ProductAPIs.ts"
+import {ProductModel} from "../Models/ProductModel"
 
 type PaginationProps = {
-    sortBy:string,
-    sortOrder:string,
+    sortBy: string,
+    sortOrder: string,
     last: boolean
 }
 
@@ -31,13 +31,13 @@ const productSlice = createSlice({
             .addCase(fetchAllProducts.pending, state => {
                 state.isLoading = true;
             })
-            .addCase(fetchAllProducts.rejected,(state,action)=> {
-                state.isLoading = false,
-                state.error = action.error.message
+            .addCase(fetchAllProducts.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
             })
-            .addCase(fetchAllProducts.fulfilled,(state,action) => {
-                state.isLoading = false,
-                state.products = action.payload.contentSet
+            .addCase(fetchAllProducts.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.products = action.payload.contentSet;
                 state.pagination = {
                     sortBy: action.payload.sortBy,
                     sortOrder: action.payload.sortOrder,

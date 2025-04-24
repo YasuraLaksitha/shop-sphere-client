@@ -9,8 +9,7 @@ export const fetchAllProducts = createAsyncThunk(
     async (props: Partial<FetchAllProductProps>, thunkAPI) => {
 
         try {
-            const response: AxiosResponse = await productBaseURL.get(`/public/products?${props.queryString}`, {
-            });
+            const response: AxiosResponse = await productBaseURL.get(`/public/products?${props.queryString}`, {});
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response?.date?.message ?? 'Something went wrong');
