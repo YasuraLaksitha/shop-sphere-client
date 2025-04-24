@@ -3,8 +3,12 @@ import {fetchAllProducts} from "../api/ProductAPIs.ts"
 import {ProductModel} from "../Models/ProductModel"
 
 type PaginationProps = {
+    page: number,
+    size: number,
     sortBy: string,
     sortOrder: string,
+    totalPages: number,
+    totalElements: number,
     last: boolean
 }
 
@@ -39,8 +43,12 @@ const productSlice = createSlice({
                 state.isLoading = false;
                 state.products = action.payload.contentSet;
                 state.pagination = {
+                    page: action.payload.page,
+                    size: action.payload.size,
                     sortBy: action.payload.sortBy,
-                    sortOrder: action.payload.sortOrder,
+                    sortOrder: action.payload.sortDir,
+                    totalElements: action.payload.totalElements,
+                    totalPages: action.payload.totalPages,
                     last: action.payload.last
                 }
             })

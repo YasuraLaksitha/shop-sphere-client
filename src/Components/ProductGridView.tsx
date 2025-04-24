@@ -6,9 +6,10 @@ import {ProductModel} from "../Models/ProductModel.ts";
 import useProductFilter from "../hooks/useProductFilter.tsx";
 import {RootState} from "../store/ConfigStore.ts";
 import Loader from "./Loader.tsx";
+import PaginationData from "./PaginationData.tsx";
 
 export default function ProductGridView() {
-    const {isLoading, error, products} = useRootSelector((state: RootState) => state.products)
+    const {isLoading, error, products, pagination} = useRootSelector((state: RootState) => state.products);
     useProductFilter();
 
     if (error) {
@@ -34,10 +35,18 @@ export default function ProductGridView() {
                     <Loader/>
                 </div>
             ) : (
-                <div className='mt-18 pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
-                    {products?.map((p: ProductModel, index: number) => {
-                        return <ProductCard key={index} value={p}/>
-                    })}
+                <div>
+                    <div
+                        className='mt-18 pb-6 px-15 grid 2xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 gap-y-6 gap-x-6'>
+                        {products?.map((p: ProductModel, index: number) => {
+                            return <ProductCard key={index} value={p}/>
+                        })}
+                    </div>
+                    <div className='flex justify-center items-center my-10'>
+                        <PaginationData
+                            numberOfPages={pagination?.totalPages as number}
+                            dataCount={pagination?.totalElements as number}/>
+                    </div>
                 </div>
             )}
 
