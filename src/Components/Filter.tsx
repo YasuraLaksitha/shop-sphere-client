@@ -19,7 +19,7 @@ export default function Filter() {
 
     useEffect((): void => {
         setCategory(searchParams.get("category") as SetStateAction<string>);
-        setSortOrder(searchParams.get("sortDir") as SetStateAction<string>);
+        setSortOrder(searchParams.get("sortOrder") as SetStateAction<string>);
         setSearchTerm(searchParams.get("keyword") as SetStateAction<string | undefined>);
     }, [searchParams])
 
@@ -52,7 +52,7 @@ export default function Filter() {
     function toggleSortOrder(): void {
         setSortOrder((preState: string): SortOrderToggler => {
             const newSortOrder: SortOrderToggler = preState === "asc" ? "desc" : "asc";
-            searchParams.set("sortDir", newSortOrder)
+            searchParams.set("sortOrder", newSortOrder)
             navigate(`${pathName}?${searchParams}`)
             return newSortOrder;
         })
