@@ -22,8 +22,8 @@ export default function HeroBanner() {
                 onSwiper={(swiper) => console.log(swiper)}>
                 {banners.map((banner, index) =>
                     <SwiperSlide key={index}>
-                        <div className={`flex justify-center gap-70 items-center carousel-item rounded-lg sm:h-[500px] ${colors[Math.floor(Math.random() * 4)]}`}>
-                            <div className={'ms-30'}>
+                        <div className={`flex justify-center gap-30 items-center carousel-item rounded-lg sm:h-[500px] ${colors[Math.floor(Math.random() * 4)]}`}>
+                            <div className={'flex'}>
                                 <div className={'text-center justify-center ms-30'}>
                                     <h3 className={'text-3xl text-white'}>
                                         {banner.title}
@@ -41,7 +41,7 @@ export default function HeroBanner() {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={'flex items-center me-20'}>
+                            <div className={'flex items-center mx-15 w-fit'}>
                                 <img src={banner.image} alt={banner.title}/>
                             </div>
                         </div>
