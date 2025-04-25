@@ -3,21 +3,22 @@ import {useRootSelector} from '../store/Hooks';
 import ProductCard from './ProductCard';
 import Filter from './Filter';
 import {ProductModel} from "../Models/ProductModel.ts";
-import useProductFilter from "../hooks/useProductFilter.tsx";
+import useProductFilter from "../hooks/useProductFilter.ts";
 import {RootState} from "../store/ConfigStore.ts";
 import Loader from "./Loader.tsx";
 import PaginationData from "./PaginationData.tsx";
 
 export default function ProductGridView() {
     const {isLoading, error, products, pagination} = useRootSelector((state: RootState) => state.products);
+    const categoryState = useRootSelector((state: RootState) => state.categories);
     useProductFilter();
 
-    if (error) {
+    if (error || categoryState.error) {
         return (
             <div className='flex justify-center items-center h-[200px] mt-4'>
                 <FaExclamationTriangle className='text-slate-800 text-3xl mr-2'/>
                 <span className='text-slate-800 font-medium text-lg'>
-                    {error}
+                    {error ?? categoryState.error}
                 </span>
             </div>
         )
@@ -30,7 +31,7 @@ export default function ProductGridView() {
     return (
         <div className="min-h-[700px]">
             <Filter/>
-            {(isLoading) ? (
+            {(isLoading || categoryState.isLoading) ? (
                 <div className='flex justify-center items-center h-[200px] mt-4'>
                     <Loader/>
                 </div>

@@ -1,17 +1,16 @@
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Tooltip} from "@mui/material";
 import {ChangeEvent, SetStateAction, useEffect, useState} from "react";
-import {FaArrowDown, FaArrowUp, FaExclamationTriangle} from "react-icons/fa";
+import {FaArrowDown, FaArrowUp} from "react-icons/fa";
 import {NavigateFunction, useLocation, useNavigate, useSearchParams} from "react-router-dom"
 import {FiRefreshCw, FiSearch} from "react-icons/fi";
 import {useRootDispatch, useRootSelector} from "../store/Hooks.ts";
 import {RootState} from "../store/ConfigStore.ts";
 import {fetchAllCategories} from "../api/CategoryAPIs.ts";
-import Loader from "./Loader.tsx";
 
 type SortOrderToggler = "asc" | "desc";
 
 export default function Filter() {
-    const {isLoading, error, categories} = useRootSelector((state: RootState) => state.categories);
+    const {categories} = useRootSelector((state: RootState) => state.categories);
     const dispatch = useRootDispatch();
 
     const navigate: NavigateFunction = useNavigate();
@@ -45,25 +44,6 @@ export default function Filter() {
             clearTimeout(timeOutHandler);
         }
     }, [searchTerm, searchParams, pathName, navigate]);
-
-    if (isLoading) {
-        return (
-            <div className='flex justify-center items-center h-[200px] mt-4'>
-               <Loader/>
-            </div>
-        )
-    }
-
-    if (error) {
-        return (
-            <div className='flex justify-center items-center h-[200px] mt-4'>
-                <FaExclamationTriangle className='text-slate-800 text-3xl mr-2'/>
-                <span className='text-slate-800 font-medium text-lg'>
-                    {error}
-                </span>
-            </div>
-        )
-    }
 
     function handleCategoryChange(e: SelectChangeEvent): void {
         const selectedCategory = e.target.value;

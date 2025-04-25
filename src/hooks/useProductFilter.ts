@@ -9,7 +9,7 @@ export default function useProductFilter() {
 
     useEffect(() => {
         const currentPage: number = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-        const size: number = searchParams.get("size") ? Number(searchParams.get("size")) : 50;
+        const size: number = searchParams.get("size") ? Number(searchParams.get("size")) : 8;
 
         searchParams.set("page", (currentPage - 1).toString());
         searchParams.set("size", size.toString());
@@ -22,6 +22,4 @@ export default function useProductFilter() {
 
         dispatch(fetchAllProducts({queryString}))
     }, [searchParams, dispatch]);
-
-
 }

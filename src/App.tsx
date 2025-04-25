@@ -1,10 +1,10 @@
 import './App.css';
-import ProductGridView from './Components/ProductGridView';
+import {Outlet} from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <ProductGridView/>
+      <Outlet/>
     </div>
   )
 }

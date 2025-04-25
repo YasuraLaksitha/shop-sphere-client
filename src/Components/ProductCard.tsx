@@ -2,6 +2,7 @@ import React from 'react';
 import {FaShoppingCart} from 'react-icons/fa';
 import {ProductModel} from '../Models/ProductModel';
 import ProductViewModal from './ProductViewModal';
+import {truncateText} from "../util/AppplicaionUtils.ts";
 
 type ProductCardProps = {
     value: ProductModel;
@@ -38,7 +39,7 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                     </h2>
                     <div className='min-h-20 max-h-20'>
                         <p className='text-gray-600 text-sm'>
-                            {product.value.productDescription}
+                            {truncateText(product.value.productDescription)}
                         </p>
                     </div>
                     <div className='flex items-center justify-between'>
