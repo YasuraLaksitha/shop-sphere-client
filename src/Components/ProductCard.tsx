@@ -13,7 +13,7 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
 
     const isAvailable: boolean = product.value.productQuantity > 0;
 
-    const handleProductViewModal = () => {
+    const handleProductViewModal: VoidFunction = () => {
         setIsModalOpen(true);
     }
 
@@ -25,11 +25,11 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                     handleProductViewModal()
                 }}
                 className='rounded-lg shadow-xl transition-shadow duration-300 min-h-full'>
-                <div className='w-full overflow-hidden aspect-[3/2]'>
+                <div className='w-full overflow-hidden aspect-[3/2] rounded-lg'>
                     <img
                         src={product.value.image!}
                         alt={product.value.productName}
-                        className='w-full h-fulll cursor-pointer transition-transform duration-300 trasform: hover:scale-105'
+                        className='w-full h-full hover:overflow-hidden cursor-pointer transition-transform duration-300 transform: hover:scale-105'
                     />
                 </div>
                 <div className="p-4">
