@@ -18,7 +18,7 @@ export default function Filter() {
     const [searchParams] = useSearchParams();
 
     const [category, setCategory] = useState<string>("all");
-    const [sortOrder, setSortOrder] = useState<string>("asc");
+    const [sortOrder, setSortOrder] = useState<SortOrderToggler>("asc");
     const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function Filter() {
 
     useEffect((): void => {
         setCategory(searchParams.get("category") as SetStateAction<string>);
-        setSortOrder(searchParams.get("sortOrder") as SetStateAction<string>);
+        setSortOrder(searchParams.get("sortOrder") as SetStateAction<SortOrderToggler> || "asc") ;
         setSearchTerm(searchParams.get("keyword") as SetStateAction<string | undefined>);
     }, [searchParams])
 
