@@ -26,9 +26,11 @@ export default function Filter() {
     }, [dispatch]);
 
     useEffect((): void => {
-        setCategory(searchParams.get("category") as SetStateAction<string>);
-        setSortOrder(searchParams.get("sortOrder") as SetStateAction<SortOrderToggler> || "asc") ;
-        setSearchTerm(searchParams.get("keyword") as SetStateAction<string | undefined>);
+        setCategory(searchParams.get("category") as SetStateAction<string> || "all");
+        setSortOrder(searchParams.get("sortOrder") as SetStateAction<SortOrderToggler> || "asc");
+
+        if (searchParams.get("keyword"))
+            setSearchTerm(searchParams.get("keyword") as SetStateAction<string | undefined> || "");
     }, [searchParams])
 
     useEffect((): () => void => {
