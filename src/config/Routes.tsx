@@ -2,7 +2,8 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "../App.tsx";
 import ProductGridView from "../components/ProductGridView.tsx";
 import Home from "../components/Home.tsx";
-import About from "../components/About.tsx";
+import AboutUs from "../components/AboutUs.tsx";
+import ContactUs from "../components/ContactUs.tsx";
 
 export const AppRoutes = createBrowserRouter([
     {
@@ -18,8 +19,12 @@ export const AppRoutes = createBrowserRouter([
                 element: <Home/>
             },
             {
+                path: 'contact',
+                element: <ContactUs/>
+            },
+            {
                 path: 'about',
-                element: <About/>
+                element: <AboutUs/>
             },
             {
                 path: 'products',

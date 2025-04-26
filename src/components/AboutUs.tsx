@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {fetchAllCategories} from "../api/CategoryAPIs.ts";
 
-export default function About() {
+export default function AboutUs() {
     const categoryState = useRootSelector((state: RootState) => state.categories);
     const dispatcher = useRootDispatch();
     const navigate = useNavigate();
