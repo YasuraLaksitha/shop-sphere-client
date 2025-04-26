@@ -21,3 +21,4 @@ export const Banners = [
         description: "Bright and fun styles for kids, up to 20% off",
     }
 ]
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import {FaShoppingCart} from 'react-icons/fa';
 import {ProductModel} from '../Models/ProductModel';
-import ProductViewModal from './ProductViewModal';
+import ProductViewModal from './ProductViewModal.tsx';
 import {truncateText} from "../util/AppplicaionUtils.ts";
 
 type ProductCardProps = {
