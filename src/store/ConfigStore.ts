@@ -1,11 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit'
 import productReducer from '../store/ProductSlice'
 import categoryReducer from '../store/CategorySlice.ts'
+import cartReducer, {preLoadedCart} from '../store/CartSlice.ts'
 
 export const Store = configureStore({
+    preloadedState: {carts: preLoadedCart},
     reducer: {
         products: productReducer,
-        categories: categoryReducer
+        categories: categoryReducer,
+        carts: cartReducer
     }
 });
 

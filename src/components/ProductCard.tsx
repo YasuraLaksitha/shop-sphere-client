@@ -3,18 +3,26 @@ import {FaShoppingCart} from 'react-icons/fa';
 import {ProductModel} from '../Models/ProductModel';
 import ProductViewModal from './ProductViewModal.tsx';
 import {truncateText} from "../util/AppplicaionUtils.ts";
+import {useRootDispatch} from "../store/Hooks.ts";
+import {ADD_TO_CART} from "../store/CartSlice.ts";
 
 type ProductCardProps = {
     value: ProductModel;
 };
 
 export default function ProductCard(product: Readonly<ProductCardProps>) {
+    const dispatch = useRootDispatch();
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
     const isAvailable: boolean = product.value.productQuantity > 0;
 
     const handleProductViewModal: VoidFunction = () => {
         setIsModalOpen(true);
+    }
+
+    const handleAddToCart: VoidFunction = () => {
+        dispatch(ADD_TO_CART(product.value));
+        handleProductViewModal();
     }
 
     return (
@@ -62,7 +70,7 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                         <button
                             disabled={!isAvailable}
                             onClick={() => {
-                                handleProductViewModal()
+                                handleAddToCart();
                             }}
                             className={` flex bg-blue-500 text-white rounded-lg px-3 py-2 transition-colors duration-300 w-36 items-center justify-center
                                 ${isAvailable ? 'cursor-pointer opacity-100 hover:bg-blue-600' : 'opacity-70'}`
