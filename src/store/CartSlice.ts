@@ -42,6 +42,17 @@ const CartSlice = createSlice({
             }
         },
 
+        REMOVE_FROM_CART: (state, action) => {
+            const cartItem = action.payload
+
+            state.cart.cartItems = state.cart.cartItems.filter(
+                (item: CartItemModel) => item.product.productName != cartItem.product.productName);
+
+            state.cart.totalPrice = state.cart.totalPrice - cartItem.price;
+
+            localStorage.setItem("cart", JSON.stringify(state.cart));
+        },
+
         UPDATE_ITEM_QTY: (state, action) => {
             const {updatedCartItem, updatedQuantity} = action.payload;
             const cartItem = state.cart.cartItems
@@ -76,6 +87,6 @@ const preLoadedCart: CartStateProps = localStorage.getItem('cart') ?
     JSON.parse(<string>localStorage.getItem('cart')).cart :
     initialState
 
-export const {ADD_TO_CART, UPDATE_ITEM_QTY} = CartSlice.actions;
+export const {ADD_TO_CART, UPDATE_ITEM_QTY,REMOVE_FROM_CART} = CartSlice.actions;
 export default CartSlice.reducer;
 export {preLoadedCart}
