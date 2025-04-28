@@ -5,6 +5,8 @@ import ProductViewModal from './ProductViewModal.tsx';
 import {truncateText} from "../util/AppplicaionUtils.ts";
 import {useRootDispatch} from "../store/Hooks.ts";
 import {ADD_TO_CART} from "../store/CartSlice.ts";
+import {toast, Toaster} from 'react-hot-toast';
+
 
 type ProductCardProps = {
     value: ProductModel;
@@ -22,19 +24,18 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
 
     const handleAddToCart: VoidFunction = () => {
         dispatch(ADD_TO_CART(product.value));
-        handleProductViewModal();
+        toast.success("Added to cart")
     }
 
     return (
         <section className='product-card mt-8'>
             <div
                 role={'button'}
-                onClick={() => {
-                    handleProductViewModal()
-                }}
+                onClick={() => {}}
                 className='rounded-lg shadow-xl transition-shadow duration-300 min-h-full'>
                 <div className='w-full overflow-hidden aspect-[3/2] rounded-lg'>
                     <img
+                        onClick={()=>{handleProductViewModal()}}
                         src={product.value.image!}
                         alt={product.value.productName}
                         className='w-full h-full hover:overflow-hidden cursor-pointer transition-transform duration-300 transform: hover:scale-105'
@@ -89,6 +90,7 @@ export default function ProductCard(product: Readonly<ProductCardProps>) {
                 setIsModalOpen={setIsModalOpen}
                 isAvailable={isAvailable}
             />
+            <Toaster position={'bottom-center'}/>
         </section>
     )
 }

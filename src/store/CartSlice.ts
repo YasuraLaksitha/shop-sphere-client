@@ -1,7 +1,7 @@
-import {CartItemModel} from "../Models/CartItemModel.ts";
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductModel} from "../Models/ProductModel.ts";
 import {CartModel} from "../Models/CartModel.ts";
+import {ProductModel} from "../Models/ProductModel.ts";
+import {CartItemModel} from "../Models/CartItemModel.ts";
 
 type CartStateProps = {
     cart: CartModel;
@@ -27,27 +27,55 @@ const CartSlice = createSlice({
         ADD_TO_CART: (state, action) => {
             const product: ProductModel = action.payload;
             const cartItem = state.cart.cartItems
-                .find(item => item.product.productName === product.productName);
-
-            console.log("Product", product)
+                .find((item: CartItemModel) => item.product.productName === product.productName);
 
             if (!cartItem) {
                 const newItem: CartItemModel = {
                     product,
                     quantity: 1,
-                    price: product.productPrice
+                    price: product.productSpecialPrice && product.productSpecialPrice != 0 ?
+                        product.productSpecialPrice :
+                        product.productPrice
                 };
+                state.cart.totalPrice += newItem.price;
                 state.cart.cartItems.push(newItem);
             }
+        },
+
+        UPDATE_ITEM_QTY: (state, action) => {
+            const {updatedCartItem, updatedQuantity} = action.payload;
+            const cartItem = state.cart.cartItems
+                .find((item: CartItemModel) => item.product.productName === updatedCartItem.product.productName);
+
+            if (cartItem &&
+                updatedQuantity != cartItem?.quantity &&
+                cartItem.product.productQuantity > updatedQuantity
+            ) {
+                const newCartItem: CartItemModel = {
+                    ...updatedCartItem,
+                    quantity: updatedQuantity,
+                    price: updatedQuantity * cartItem.product.productPrice
+                }
+
+                state.cart.cartItems.splice(
+                    state.cart.cartItems.findIndex((item: CartItemModel) =>
+                        item.product.productName === updatedCartItem.product.productName)
+                    , 1
+                );
+                state.cart.cartItems.push(newCartItem);
+
+                state.cart.totalPrice = state.cart.cartItems.reduce((acc: number, item: CartItemModel) =>
+                    acc + item.price, 0);
+            }
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         }
     },
-
 });
 
 const preLoadedCart: CartStateProps = localStorage.getItem('cart') ?
-    JSON.parse(<string>localStorage.getItem('cart')) :
+    JSON.parse(<string>localStorage.getItem('cart')).cart :
     initialState
 
-export const {ADD_TO_CART} = CartSlice.actions;
+export const {ADD_TO_CART, UPDATE_ITEM_QTY} = CartSlice.actions;
 export default CartSlice.reducer;
 export {preLoadedCart}

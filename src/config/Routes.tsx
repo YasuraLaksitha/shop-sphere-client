@@ -4,6 +4,7 @@ import ProductGridView from "../components/ProductGridView.tsx";
 import Home from "../components/Home.tsx";
 import AboutUs from "../components/AboutUs.tsx";
 import ContactUs from "../components/ContactUs.tsx";
+import Cart from "../components/Cart.tsx";
 
 export const AppRoutes = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const AppRoutes = createBrowserRouter([
             {
                 path: 'home',
                 element: <Home/>
+            },
+            {
+                path: 'cart',
+                element: <Cart/>
             },
             {
                 path: 'contact',
